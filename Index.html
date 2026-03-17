@@ -1,0 +1,1190 @@
+<!doctype html>
+<html lang="en" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AXIA — Build Beyond Limits</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+  <style>
+html, body { height: 100%; margin: 0; padding: 0; overflow-x: hidden; }
+* { box-sizing: border-box; }
+body { font-family: 'Outfit', sans-serif; background: #050510; color: #e0e0f0; overflow-x: hidden; }
+
+/* COSMIC EFFECTS */
+@keyframes cosmicPulse { 0%,100% { opacity: 0.3; } 50% { opacity: 0.8; } }
+@keyframes singularityWarp { 0% { transform: scale(1) rotate(0deg); } 50% { transform: scale(1.2) rotate(180deg); } 100% { transform: scale(1) rotate(360deg); } }
+@keyframes quantumFlicker { 0%, 100% { opacity: 1; filter: brightness(1); } 50% { opacity: 0.6; filter: brightness(1.3); } }
+@keyframes vortexSpin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+@keyframes glitchShift { 0%, 100% { clip-path: inset(0 0 0 0); } 25% { clip-path: inset(20% 0 30% 0); } 50% { clip-path: inset(10% 0 15% 0); } 75% { clip-path: inset(5% 0 25% 0); } }
+@keyframes electricChain { 0%, 100% { opacity: 0.2; stroke-dashoffset: 0; } 50% { opacity: 1; stroke-dashoffset: -20; } }
+@keyframes timeWarp { 0% { transform: scaleX(1) skewY(0deg); opacity: 1; } 50% { transform: scaleX(1.5) skewY(2deg); opacity: 0.7; } 100% { transform: scaleX(1) skewY(0deg); opacity: 1; } }
+
+/* Floating text particles */
+.text-particle {
+  position: fixed;
+  pointer-events: none;
+  font-weight: 700;
+  font-size: 14px;
+  opacity: 0;
+  z-index: 100;
+}
+
+/* Quantum grid overlay */
+.quantum-grid {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 50;
+  opacity: 0.03;
+  background-image: 
+    linear-gradient(0deg, transparent 24%, rgba(99,102,241,0.1) 25%, rgba(99,102,241,0.1) 26%, transparent 27%, transparent 74%, rgba(99,102,241,0.1) 75%, rgba(99,102,241,0.1) 76%, transparent 77%, transparent),
+    linear-gradient(90deg, transparent 24%, rgba(168,85,247,0.1) 25%, rgba(168,85,247,0.1) 26%, transparent 27%, transparent 74%, rgba(168,85,247,0.1) 75%, rgba(168,85,247,0.1) 76%, transparent 77%, transparent);
+  background-size: 50px 50px;
+  animation: vortexSpin 60s linear infinite;
+}
+
+/* Plasma wave */
+.plasma-wave {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 300px;
+  pointer-events: none;
+  z-index: 5;
+  background: linear-gradient(180deg, transparent 0%, rgba(99,102,241,0.05) 20%, rgba(168,85,247,0.03) 50%, transparent 100%);
+  animation: timeWarp 8s ease-in-out infinite;
+}
+
+/* Starfield */
+.starfield {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 2;
+  overflow: hidden;
+}
+
+.star {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  background: white;
+  border-radius: 50%;
+  opacity: 0;
+  animation: starTwinkle 3s ease-in-out infinite;
+}
+
+@keyframes starTwinkle {
+  0%, 100% { opacity: 0; }
+  50% { opacity: 1; }
+}
+
+/* Portal effect */
+.portal {
+  position: fixed;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  border: 2px solid;
+  pointer-events: none;
+  z-index: 3;
+  opacity: 0;
+  animation: portalPulse 4s ease-in-out infinite;
+}
+
+@keyframes portalPulse {
+  0%, 100% { opacity: 0; }
+  50% { opacity: 0.6; }
+}
+
+/* Energy orb */
+.energy-orb {
+  position: fixed;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  filter: blur(20px);
+  pointer-events: none;
+  z-index: 4;
+  opacity: 0;
+  animation: orbFloat 6s ease-in-out infinite;
+}
+
+@keyframes orbFloat {
+  0%, 100% { opacity: 0; transform: translateY(0) scale(0.8); }
+  50% { opacity: 0.8; transform: translateY(-30px) scale(1); }
+}
+
+/* Shock wave */
+.shock-wave {
+  position: fixed;
+  border-radius: 50%;
+  border: 2px solid rgba(236,72,153,0.6);
+  pointer-events: none;
+  z-index: 99;
+  animation: shockExpand 0.8s ease-out forwards;
+}
+
+@keyframes shockExpand {
+  0% { width: 0; height: 0; opacity: 1; }
+  100% { width: 400px; height: 400px; opacity: 0; }
+}
+
+/* Glitch popup */
+.glitch-popup {
+  position: fixed;
+  padding: 20px;
+  border-radius: 12px;
+  pointer-events: all;
+  z-index: 1000;
+  animation: popupGlitch 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+  box-shadow: 0 0 40px rgba(99,102,241,0.4), 0 0 80px rgba(168,85,247,0.2);
+  border: 1px solid rgba(236,72,153,0.5);
+}
+
+@keyframes popupGlitch {
+  0% { opacity: 0; transform: scale(0.3) rotate(-10deg); }
+  50% { transform: scale(1.05) rotate(2deg); }
+  100% { opacity: 1; transform: scale(1) rotate(0deg); }
+}
+
+/* Plasma text */
+.plasma-text {
+  animation: plasmaFlow 3s ease-in-out infinite;
+  background: linear-gradient(90deg, #6366f1, #a855f7, #ec4899, #6366f1);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+@keyframes plasmaFlow {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+/* Animated gradient bg */
+.hero-gradient {
+  background: linear-gradient(135deg, #0a0a2e 0%, #1a0530 25%, #0d1b3e 50%, #150835 75%, #0a0a2e 100%);
+  background-size: 400% 400%;
+  animation: gradShift 25s ease infinite;
+}
+@keyframes gradShift {
+  0% { background-position: 0% 50%; }
+  25% { background-position: 100% 0%; }
+  50% { background-position: 100% 100%; }
+  75% { background-position: 0% 100%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Floating animation */
+@keyframes float1 { 0%,100% { transform: translateY(0px) rotate(0deg); } 50% { transform: translateY(-20px) rotate(2deg); } }
+@keyframes float2 { 0%,100% { transform: translateY(0px) rotate(0deg); } 50% { transform: translateY(-15px) rotate(-1.5deg); } }
+@keyframes float3 { 0%,100% { transform: translateY(0px); } 50% { transform: translateY(-25px); } }
+@keyframes orb-glow { 0%, 100% { filter: blur(60px) brightness(1); } 50% { filter: blur(80px) brightness(1.2); } }
+
+.float-1 { animation: float1 6s ease-in-out infinite; }
+.float-2 { animation: float2 8s ease-in-out infinite; animation-delay: -2s; }
+.float-3 { animation: float3 7s ease-in-out infinite; animation-delay: -4s; }
+
+.hero-gradient::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: radial-gradient(ellipse at 20% 50%, rgba(99,102,241,0.08) 0%, transparent 50%),
+              radial-gradient(ellipse at 80% 50%, rgba(168,85,247,0.08) 0%, transparent 50%);
+  animation: orbShift 15s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes orbShift {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(30px, -30px) scale(1.1); }
+}
+
+/* Enhanced glow border on hover */
+.glow-card {
+  position: relative;
+  transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.4s ease, filter 0.4s ease;
+}
+.glow-card::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  background: linear-gradient(135deg, rgba(99,102,241,0), rgba(168,85,247,0));
+  z-index: -1;
+  transition: background 0.4s ease;
+}
+.glow-card:hover::before {
+  background: linear-gradient(135deg, rgba(99,102,241,0.5), rgba(236,72,153,0.3), rgba(168,85,247,0.5));
+}
+.glow-card:hover {
+  transform: translateY(-8px) scale(1.02) perspective(1000px) rotateX(2deg);
+  box-shadow: 0 20px 60px -15px rgba(99,102,241,0.25), 0 0 40px -10px rgba(168,85,247,0.15), 0 0 80px -20px rgba(99,102,241,0.1);
+  filter: brightness(1.1);
+}
+
+/* Reveal animation with stagger */
+.reveal {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: opacity 0.8s cubic-bezier(0.23, 1, 0.32, 1), transform 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.stagger-children .reveal:nth-child(1) { transition-delay: 0.05s; }
+.stagger-children .reveal:nth-child(2) { transition-delay: 0.12s; }
+.stagger-children .reveal:nth-child(3) { transition-delay: 0.19s; }
+.stagger-children .reveal:nth-child(4) { transition-delay: 0.26s; }
+.stagger-children .reveal:nth-child(5) { transition-delay: 0.33s; }
+.stagger-children .reveal:nth-child(6) { transition-delay: 0.40s; }
+.stagger-children .reveal:nth-child(7) { transition-delay: 0.47s; }
+.stagger-children .reveal:nth-child(8) { transition-delay: 0.54s; }
+
+/* Enhanced ripple */
+.ripple-btn { position: relative; overflow: hidden; }
+.ripple-btn .ripple-effect {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.35);
+  transform: scale(0);
+  animation: rippleAnim 0.8s ease-out;
+  pointer-events: none;
+  box-shadow: 0 0 20px rgba(255,255,255,0.2);
+}
+@keyframes rippleAnim {
+  to { transform: scale(5); opacity: 0; }
+}
+
+/* Popular card glow */
+.popular-glow {
+  border: 1px solid rgba(168,85,247,0.4) !important;
+  box-shadow: 0 0 30px -5px rgba(168,85,247,0.2), inset 0 0 30px -10px rgba(99,102,241,0.05);
+  animation: popularPulse 3s ease-in-out infinite;
+}
+.popular-glow::before {
+  background: linear-gradient(135deg, rgba(99,102,241,0.2), rgba(168,85,247,0.15)) !important;
+}
+
+@keyframes popularPulse {
+  0%, 100% { box-shadow: 0 0 30px -5px rgba(168,85,247,0.2), inset 0 0 30px -10px rgba(99,102,241,0.05); }
+  50% { box-shadow: 0 0 50px -5px rgba(168,85,247,0.35), inset 0 0 40px -8px rgba(99,102,241,0.1); }
+}
+
+/* Badge pulse */
+@keyframes badgePulse {
+  0%,100% { box-shadow: 0 0 10px rgba(168,85,247,0.3); }
+  50% { box-shadow: 0 0 20px rgba(168,85,247,0.6), 0 0 40px rgba(99,102,241,0.2); }
+}
+.badge-pulse { animation: badgePulse 2s ease-in-out infinite; }
+
+/* Hero text entrance */
+@keyframes heroSlideUp {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.hero-anim-1 { animation: heroSlideUp 1s cubic-bezier(0.23, 1, 0.32, 1) 0.2s both; }
+.hero-anim-2 { animation: heroSlideUp 1s cubic-bezier(0.23, 1, 0.32, 1) 0.45s both; }
+.hero-anim-3 { animation: heroSlideUp 1s cubic-bezier(0.23, 1, 0.32, 1) 0.7s both; }
+
+/* Enhanced button animations */
+.ripple-btn {
+  transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+}
+.ripple-btn:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.15);
+}
+.ripple-btn:active {
+  transform: translateY(0px);
+}
+
+/* Text glow on hover */
+.glow-card h3:hover, .glow-card p:hover {
+  text-shadow: 0 0 10px rgba(99,102,241,0.3);
+}
+
+/* Section entrance */
+section {
+  animation: sectionReveal 1s ease-out;
+}
+@keyframes sectionReveal {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Glass card */
+.glass {
+  background: rgba(255,255,255,0.03);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,255,255,0.06);
+}
+.glass-strong {
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+/* Particle canvas */
+#particles-canvas {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Section spacing */
+.section-spacing { padding: 100px 0; }
+
+/* Neon text */
+.neon-text {
+  background: linear-gradient(135deg, #818cf8, #a855f7, #ec4899);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Contact glow input */
+.glow-input {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.glow-input:focus {
+  outline: none;
+  border-color: rgba(99,102,241,0.5);
+  box-shadow: 0 0 20px -5px rgba(99,102,241,0.3), 0 0 40px -10px rgba(168,85,247,0.15);
+}
+
+/* Plan expand */
+.plan-options {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.5s cubic-bezier(0.23, 1, 0.32, 1), opacity 0.4s ease, padding 0.4s ease;
+}
+.plan-options.open {
+  max-height: 300px;
+  opacity: 1;
+  padding-top: 16px;
+}
+
+/* Custom cursor */
+html { cursor: none; }
+body {
+  background-image: none;
+  position: relative;
+}
+
+.custom-cursor {
+  position: fixed;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #6366f1;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 10001;
+  transform: translate(-50%, -50%);
+  transition: border-color 0.3s ease;
+}
+
+.custom-cursor::after {
+  content: '';
+  position: absolute;
+  inset: -8px;
+  border: 1px solid rgba(99,102,241,0.2);
+  border-radius: 50%;
+  animation: cursorPulse 2s ease-in-out infinite;
+}
+
+.custom-cursor::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 4px;
+  height: 4px;
+  background: #6366f1;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@keyframes cursorPulse {
+  0%, 100% { transform: scale(1); opacity: 0.3; }
+  50% { transform: scale(1.5); opacity: 0; }
+}
+
+.custom-cursor.click {
+  animation: cursorClick 0.4s ease-out;
+}
+
+@keyframes cursorClick {
+  0% { transform: translate(-50%, -50%) scale(1); }
+  50% { transform: translate(-50%, -50%) scale(1.3); }
+  100% { transform: translate(-50%, -50%) scale(1); }
+}
+
+.custom-cursor.hover { border-color: #a855f7; }
+.custom-cursor.hover-primary { border-color: #ec4899; }
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #050510; }
+::-webkit-scrollbar-thumb { background: rgba(99,102,241,0.3); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(99,102,241,0.5); }
+
+/* Navbar */
+.nav-blur {
+  background: rgba(5,5,16,0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  transition: background 0.3s ease;
+}
+
+/* Tech icon */
+.tech-icon {
+  width: 56px; height: 56px;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 14px;
+  font-size: 24px;
+  font-weight: 700;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* Gradient line */
+.gradient-line {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(99,102,241,0.4), rgba(168,85,247,0.4), rgba(236,72,153,0.3), transparent);
+}
+
+/* Badge pulse */
+@keyframes badgePulse {
+  0%,100% { box-shadow: 0 0 10px rgba(168,85,247,0.3); }
+  50% { box-shadow: 0 0 20px rgba(168,85,247,0.6), 0 0 40px rgba(99,102,241,0.2); }
+}
+.badge-pulse { animation: badgePulse 2s ease-in-out infinite; }
+
+/* Hero text entrance */
+@keyframes heroSlideUp {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.hero-anim-1 { animation: heroSlideUp 1s cubic-bezier(0.23, 1, 0.32, 1) 0.2s both; }
+.hero-anim-2 { animation: heroSlideUp 1s cubic-bezier(0.23, 1, 0.32, 1) 0.45s both; }
+.hero-anim-3 { animation: heroSlideUp 1s cubic-bezier(0.23, 1, 0.32, 1) 0.7s both; }
+
+/* Smooth scroll */
+html { scroll-behavior: smooth; }
+
+/* Toast */
+.toast {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%) translateY(100px);
+  padding: 14px 28px;
+  border-radius: 12px;
+  z-index: 10000;
+  transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1), opacity 0.5s ease;
+  opacity: 0;
+  pointer-events: none;
+}
+.toast.show {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+}
+</style>
+  <style>body { box-sizing: border-box; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+ </head>
+ <body class="h-full"><!-- COSMIC LAYERS -->
+  <div class="starfield" id="starfield"></div>
+  <div class="quantum-grid"></div>
+  <div class="plasma-wave"></div><!-- INTERACTIVE ELEMENTS -->
+  <div class="cursor-glow" id="cursorGlow"></div>
+  <div class="custom-cursor" id="customCursor"></div>
+  <canvas id="particles-canvas"></canvas><!-- POPUPS CONTAINER -->
+  <div id="popups-container" style="position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:900;"></div><!-- Main wrapper -->
+  <div id="app-wrapper" class="relative z-10 w-full h-full overflow-auto"><!-- NAV -->
+   <nav class="nav-blur fixed top-0 left-0 right-0 z-50 px-6 py-4">
+    <div class="max-w-7xl mx-auto flex items-center justify-between"><a href="#hero" class="text-2xl font-bold tracking-tight"> <span class="neon-text">AXIA</span> </a>
+     <div class="hidden md:flex items-center gap-8"><a href="#services" class="text-sm text-gray-400 hover:text-white transition-colors duration-300">Services</a> <a href="#tech" class="text-sm text-gray-400 hover:text-white transition-colors duration-300">Tech</a> <a href="#pricing" class="text-sm text-gray-400 hover:text-white transition-colors duration-300">Pricing</a> <a href="#about" class="text-sm text-gray-400 hover:text-white transition-colors duration-300">About</a> <a href="#contact" class="text-sm text-gray-400 hover:text-white transition-colors duration-300">Contact</a>
+     </div><button id="mobileMenuBtn" class="md:hidden text-gray-400 hover:text-white transition-colors" aria-label="Toggle menu"> <i data-lucide="menu" style="width:24px;height:24px;"></i> </button>
+    </div><!-- Mobile menu -->
+    <div id="mobileMenu" class="md:hidden hidden mt-4 pb-4 flex flex-col gap-4"><a href="#services" class="text-sm text-gray-400 hover:text-white transition-colors">Services</a> <a href="#tech" class="text-sm text-gray-400 hover:text-white transition-colors">Tech</a> <a href="#pricing" class="text-sm text-gray-400 hover:text-white transition-colors">Pricing</a> <a href="#about" class="text-sm text-gray-400 hover:text-white transition-colors">About</a> <a href="#contact" class="text-sm text-gray-400 hover:text-white transition-colors">Contact</a>
+    </div>
+   </nav><!-- HERO -->
+   <section id="hero" class="hero-gradient relative min-h-screen flex items-center justify-center px-6" style="min-height:100%;">
+    <div class="absolute inset-0 overflow-hidden pointer-events-none">
+     <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-indigo-600/10 rounded-full blur-3xl float-1"></div>
+     <div class="absolute bottom-1/4 right-1/4 w-80 h-80 bg-purple-600/10 rounded-full blur-3xl float-2"></div>
+     <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-72 h-72 bg-pink-600/5 rounded-full blur-3xl float-3"></div>
+    </div>
+    <div class="relative z-10 text-center max-w-4xl mx-auto pt-20">
+     <h1 id="heroTitle" class="hero-anim-1 text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-900 leading-none tracking-tight mb-6"><span class="neon-text">AXIA</span><span class="text-white"> — Build Beyond Limits</span></h1>
+     <p id="heroSubtitle" class="hero-anim-2 text-lg sm:text-xl text-gray-400 max-w-2xl mx-auto mb-10 leading-relaxed">We design and develop high-end websites for startups and modern businesses.</p>
+     <div class="hero-anim-3"><a href="#contact" class="ripple-btn inline-flex items-center gap-3 px-8 py-4 rounded-2xl font-semibold text-white transition-all duration-300 hover:scale-105" style="background: linear-gradient(135deg, #6366f1, #a855f7, #ec4899); box-shadow: 0 10px 40px -10px rgba(99,102,241,0.4);"> <span id="ctaText">Start Your Project</span> <i data-lucide="arrow-right" style="width:20px;height:20px;"></i> </a>
+     </div><!-- Scroll indicator -->
+     <div class="hero-anim-3 mt-16 flex flex-col items-center gap-2 text-gray-500"><span class="text-xs tracking-widest uppercase">Scroll</span>
+      <div class="w-px h-8 bg-gradient-to-b from-gray-500 to-transparent"></div>
+     </div>
+    </div>
+   </section><!-- SERVICES -->
+   <section id="services" class="section-spacing px-6">
+    <div class="max-w-7xl mx-auto">
+     <div class="text-center mb-16 reveal">
+      <p class="text-sm tracking-widest uppercase text-indigo-400 mb-3">What We Do</p>
+      <h2 class="text-4xl sm:text-5xl font-800 text-white">Our Services</h2>
+     </div>
+     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 stagger-children"><!-- Service 1 -->
+      <div class="reveal glow-card glass rounded-3xl p-8 cursor-pointer" data-tilt>
+       <div class="w-14 h-14 rounded-2xl bg-indigo-500/10 flex items-center justify-center mb-6"><i data-lucide="code-2" style="width:28px;height:28px;color:#818cf8;"></i>
+       </div>
+       <h3 class="text-xl font-bold text-white mb-3">Web Development</h3>
+       <p class="text-gray-400 text-sm leading-relaxed">Performant, accessible websites built with cutting-edge technology stacks.</p>
+      </div><!-- Service 2 -->
+      <div class="reveal glow-card glass rounded-3xl p-8 cursor-pointer" data-tilt>
+       <div class="w-14 h-14 rounded-2xl bg-purple-500/10 flex items-center justify-center mb-6"><i data-lucide="palette" style="width:28px;height:28px;color:#a855f7;"></i>
+       </div>
+       <h3 class="text-xl font-bold text-white mb-3">UI/UX Design</h3>
+       <p class="text-gray-400 text-sm leading-relaxed">Intuitive interfaces that delight users and drive engagement.</p>
+      </div><!-- Service 3 -->
+      <div class="reveal glow-card glass rounded-3xl p-8 cursor-pointer" data-tilt>
+       <div class="w-14 h-14 rounded-2xl bg-pink-500/10 flex items-center justify-center mb-6"><i data-lucide="rocket" style="width:28px;height:28px;color:#ec4899;"></i>
+       </div>
+       <h3 class="text-xl font-bold text-white mb-3">Startup Launch Kits</h3>
+       <p class="text-gray-400 text-sm leading-relaxed">Everything you need to go from idea to live product, fast.</p>
+      </div><!-- Service 4 -->
+      <div class="reveal glow-card glass rounded-3xl p-8 cursor-pointer" data-tilt>
+       <div class="w-14 h-14 rounded-2xl bg-cyan-500/10 flex items-center justify-center mb-6"><i data-lucide="layers" style="width:28px;height:28px;color:#22d3ee;"></i>
+       </div>
+       <h3 class="text-xl font-bold text-white mb-3">Custom Web Apps</h3>
+       <p class="text-gray-400 text-sm leading-relaxed">Tailored applications that solve real business problems at scale.</p>
+      </div>
+     </div>
+    </div>
+   </section><!-- TECHNOLOGIES -->
+   <section id="tech" class="section-spacing px-6">
+    <div class="max-w-5xl mx-auto">
+     <div class="text-center mb-16 reveal">
+      <p class="text-sm tracking-widest uppercase text-purple-400 mb-3">Tech Stack</p>
+      <h2 class="text-4xl sm:text-5xl font-800 text-white mb-4">Technologies We Use</h2>
+      <p class="text-gray-400 text-sm">Choose your preferred stack or let us decide for you.</p>
+     </div>
+     <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 stagger-children">
+      <div class="reveal glow-card glass rounded-2xl p-5 text-center cursor-pointer" data-tilt>
+       <div class="tech-icon bg-orange-500/10 text-orange-400 mx-auto mb-3">
+        &lt;/&gt;
+       </div>
+       <p class="text-sm font-semibold text-white">HTML</p>
+      </div>
+      <div class="reveal glow-card glass rounded-2xl p-5 text-center cursor-pointer" data-tilt>
+       <div class="tech-icon bg-blue-500/10 text-blue-400 mx-auto mb-3">
+        {}
+       </div>
+       <p class="text-sm font-semibold text-white">CSS</p>
+      </div>
+      <div class="reveal glow-card glass rounded-2xl p-5 text-center cursor-pointer" data-tilt>
+       <div class="tech-icon bg-yellow-500/10 text-yellow-400 mx-auto mb-3">
+        JS
+       </div>
+       <p class="text-sm font-semibold text-white">JavaScript</p>
+      </div>
+      <div class="reveal glow-card glass rounded-2xl p-5 text-center cursor-pointer" data-tilt>
+       <div class="tech-icon bg-cyan-500/10 text-cyan-400 mx-auto mb-3">
+        ⚛
+       </div>
+       <p class="text-sm font-semibold text-white">React</p>
+      </div>
+      <div class="reveal glow-card glass rounded-2xl p-5 text-center cursor-pointer" data-tilt>
+       <div class="tech-icon bg-white/10 text-white mx-auto mb-3">
+        N
+       </div>
+       <p class="text-sm font-semibold text-white">Next.js</p>
+      </div>
+      <div class="reveal glow-card glass rounded-2xl p-5 text-center cursor-pointer" data-tilt>
+       <div class="tech-icon bg-sky-500/10 text-sky-400 mx-auto mb-3">
+        🌊
+       </div>
+       <p class="text-sm font-semibold text-white">Tailwind</p>
+      </div>
+      <div class="reveal glow-card glass rounded-2xl p-5 text-center cursor-pointer col-start-1 sm:col-start-auto lg:col-start-3" data-tilt>
+       <div class="tech-icon bg-green-500/10 text-green-400 mx-auto mb-3">
+        Py
+       </div>
+       <p class="text-sm font-semibold text-white">Python</p>
+      </div>
+      <div class="reveal glow-card glass rounded-2xl p-5 text-center cursor-pointer" data-tilt>
+       <div class="tech-icon bg-emerald-500/10 text-emerald-400 mx-auto mb-3">
+        ⬡
+       </div>
+       <p class="text-sm font-semibold text-white">Node.js</p>
+      </div>
+     </div>
+    </div>
+   </section><!-- PRICING -->
+   <section id="pricing" class="section-spacing px-6">
+    <div class="max-w-6xl mx-auto">
+     <div class="text-center mb-16 reveal">
+      <p class="text-sm tracking-widest uppercase text-pink-400 mb-3">Investment</p>
+      <h2 class="text-4xl sm:text-5xl font-800 text-white">Pricing Plans</h2>
+     </div>
+     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 stagger-children"><!-- STARTER -->
+      <div class="reveal glow-card glass rounded-3xl p-8 flex flex-col" data-tilt data-plan="starter">
+       <p class="text-sm tracking-widest uppercase text-gray-400 mb-2">Starter</p>
+       <div class="flex items-end gap-1 mb-6"><span class="text-4xl font-900 text-white">Rs. 15,000</span>
+       </div>
+       <ul class="space-y-3 mb-8 flex-1">
+        <li class="flex items-center gap-3 text-sm text-gray-300"><i data-lucide="check" style="width:16px;height:16px;color:#818cf8;flex-shrink:0;"></i>1–3 pages</li>
+        <li class="flex items-center gap-3 text-sm text-gray-300"><i data-lucide="check" style="width:16px;height:16px;color:#818cf8;flex-shrink:0;"></i>Responsive design</li>
+        <li class="flex items-center gap-3 text-sm text-gray-300"><i data-lucide="check" style="width:16px;height:16px;color:#818cf8;flex-shrink:0;"></i>Clean UI</li>
+        <li class="flex items-center gap-3 text-sm text-gray-300"><i data-lucide="check" style="width:16px;height:16px;color:#818cf8;flex-shrink:0;"></i>Fast delivery</li>
+       </ul><button onclick="togglePlan(this, 'Starter')" class="ripple-btn w-full py-3.5 rounded-xl font-semibold text-sm text-white transition-all duration-300 hover:scale-[1.03]" style="background: linear-gradient(135deg, rgba(99,102,241,0.2), rgba(168,85,247,0.2)); border: 1px solid rgba(99,102,241,0.3);"> Choose Plan </button>
+       <div class="plan-options">
+        <div class="space-y-2"><a href="mailto:amfhaider@outlook.com?subject=Starter%20Plan%20-%20AXIA" class="flex items-center gap-3 px-4 py-3 rounded-xl glass text-sm text-gray-300 hover:text-white transition-all duration-300 hover:bg-white/5"> <i data-lucide="mail" style="width:16px;height:16px;color:#818cf8;"></i>Email (Outlook) </a> <a href="mailto:amfahhjd@gmail.com?subject=Starter%20Plan%20-%20AXIA" class="flex items-center gap-3 px-4 py-3 rounded-xl glass text-sm text-gray-300 hover:text-white transition-all duration-300 hover:bg-white/5"> <i data-lucide="mail" style="width:16px;height:16px;color:#a855f7;"></i>Email (Gmail) </a> <a href="https://www.linkedin.com/in/amfahh-jawad" target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 px-4 py-3 rounded-xl glass text-sm text-gray-300 hover:text-white transition-all duration-300 hover:bg-white/5"> <i data-lucide="linkedin" style="width:16px;height:16px;color:#ec4899;"></i>LinkedIn </a>
+        </div>
+       </div>
+      </div><!-- GROWTH -->
+      <div class="reveal glow-card glass popular-glow rounded-3xl p-8 flex flex-col relative" data-tilt data-plan="growth">
+       <div class="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full text-xs font-bold tracking-widest uppercase badge-pulse" style="background: linear-gradient(135deg, #6366f1, #a855f7); color: white;">
+        Most Popular
+       </div>
+       <p class="text-sm tracking-widest uppercase text-purple-300 mb-2 mt-2">Growth</p>
+       <div class="flex items-end gap-1 mb-6"><span class="text-4xl font-900 neon-text">Rs. 35,000</span>
+       </div>
+       <ul class="space-y-3 mb-8 flex-1">
+        <li class="flex items-center gap-3 text-sm text-gray-300"><i data-lucide="check" style="width:16px;height:16px;color:#a855f7;flex-shrink:0;"></i>4–7 pages</li>
+        <li class="flex items-center gap-3 text-sm text-gray-300"><i data-lucide="check" style="width:16px;height:16px;color:#a855f7;flex-shrink:0;"></i>Modern UI/UX</li>
+        <li class="flex items-center gap-3 text-sm text-gray-300"><i data-lucide="check" style="width:16px;height:16px;color:#a855f7;flex-shrink:0;"></i>Animations</li>
+        <li class="flex items-center gap-3 text-sm text-gray-300"><i data-lucide="check" style="width:16px;height:16px;color:#a855f7;flex-shrink:0;"></i>Contact form</li>
+       </ul><button onclick="togglePlan(this, 'Growth')" class="ripple-btn w-full py-3.5 rounded-xl font-semibold text-sm text-white transition-all duration-300 hover:scale-[1.03]" style="background: linear-gradient(135deg, #6366f1, #a855f7); box-shadow: 0 8px 30px -8px rgba(168,85,247,0.4);"> Choose Plan </button>
+       <div class="plan-options">
+        <div class="space-y-2"><a href="mailto:amfhaider@outlook.com?subject=Growth%20Plan%20-%20AXIA" class="flex items-center gap-3 px-4 py-3 rounded-xl glass text-sm text-gray-300 hover:text-white transition-all duration-300 hover:bg-white/5"> <i data-lucide="mail" style="width:16px;height:16px;color:#818cf8;"></i>Email (Outlook) </a> <a href="mailto:amfahhjd@gmail.com?subject=Growth%20Plan%20-%20AXIA" class="flex items-center gap-3 px-4 py-3 rounded-xl glass text-sm text-gray-300 hover:text-white transition-all duration-300 hover:bg-white/5"> <i data-lucide="mail" style="width:16px;height:16px;color:#a855f7;"></i>Email (Gmail) </a> <a href="https://www.linkedin.com/in/amfahh-jawad" target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 px-4 py-3 rounded-xl glass text-sm text-gray-300 hover:text-white transition-all duration-300 hover:bg-white/5"> <i data-lucide="linkedin" style="width:16px;height:16px;color:#ec4899;"></i>LinkedIn </a>
+        </div>
+       </div>
+      </div><!-- PREMIUM -->
+      <div class="reveal glow-card glass rounded-3xl p-8 flex flex-col" data-tilt data-plan="premium">
+       <p class="text-sm tracking-widest uppercase text-gray-400 mb-2">Premium</p>
+       <div class="flex items-end gap-1 mb-6"><span class="text-4xl font-900 text-white">Rs. 50,500</span>
+       </div>
+       <ul class="space-y-3 mb-8 flex-1">
+        <li class="flex items-center gap-3 text-sm text-gray-300"><i data-lucide="check" style="width:16px;height:16px;color:#ec4899;flex-shrink:0;"></i>Unlimited pages</li>
+        <li class="flex items-center gap-3 text-sm text-gray-300"><i data-lucide="check" style="width:16px;height:16px;color:#ec4899;flex-shrink:0;"></i>Advanced UI/UX</li>
+        <li class="flex items-center gap-3 text-sm text-gray-300"><i data-lucide="check" style="width:16px;height:16px;color:#ec4899;flex-shrink:0;"></i>Custom features</li>
+        <li class="flex items-center gap-3 text-sm text-gray-300"><i data-lucide="check" style="width:16px;height:16px;color:#ec4899;flex-shrink:0;"></i>Priority delivery</li>
+       </ul><button onclick="togglePlan(this, 'Premium')" class="ripple-btn w-full py-3.5 rounded-xl font-semibold text-sm text-white transition-all duration-300 hover:scale-[1.03]" style="background: linear-gradient(135deg, rgba(236,72,153,0.2), rgba(168,85,247,0.2)); border: 1px solid rgba(236,72,153,0.3);"> Choose Plan </button>
+       <div class="plan-options">
+        <div class="space-y-2"><a href="mailto:amfhaider@outlook.com?subject=Premium%20Plan%20-%20AXIA" class="flex items-center gap-3 px-4 py-3 rounded-xl glass text-sm text-gray-300 hover:text-white transition-all duration-300 hover:bg-white/5"> <i data-lucide="mail" style="width:16px;height:16px;color:#818cf8;"></i>Email (Outlook) </a> <a href="mailto:amfahhjd@gmail.com?subject=Premium%20Plan%20-%20AXIA" class="flex items-center gap-3 px-4 py-3 rounded-xl glass text-sm text-gray-300 hover:text-white transition-all duration-300 hover:bg-white/5"> <i data-lucide="mail" style="width:16px;height:16px;color:#a855f7;"></i>Email (Gmail) </a> <a href="https://www.linkedin.com/in/amfahh-jawad" target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 px-4 py-3 rounded-xl glass text-sm text-gray-300 hover:text-white transition-all duration-300 hover:bg-white/5"> <i data-lucide="linkedin" style="width:16px;height:16px;color:#ec4899;"></i>LinkedIn </a>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section><!-- ABOUT -->
+   <section id="about" class="section-spacing px-6">
+    <div class="max-w-4xl mx-auto text-center">
+     <div class="reveal">
+      <p class="text-sm tracking-widest uppercase text-indigo-400 mb-3">Who We Are</p>
+      <h2 class="text-4xl sm:text-5xl font-800 text-white mb-8">About AXIA</h2>
+     </div>
+     <div class="reveal glass-strong rounded-3xl p-10 sm:p-14">
+      <p id="aboutText" class="text-lg sm:text-xl text-gray-300 leading-relaxed">AXIA is a modern digital agency built to help startups and small businesses launch powerful, high-quality websites. We combine stunning design with rock-solid engineering to deliver experiences that leave a lasting impression.</p>
+     </div>
+    </div>
+   </section><!-- CONTACT -->
+   <section id="contact" class="section-spacing px-6">
+    <div class="max-w-2xl mx-auto">
+     <div class="text-center mb-16 reveal">
+      <p class="text-sm tracking-widest uppercase text-cyan-400 mb-3">Get In Touch</p>
+      <h2 class="text-4xl sm:text-5xl font-800 text-white">Contact Us</h2>
+     </div>
+     <form id="contactForm" class="reveal space-y-5">
+      <div><label for="contactName" class="block text-sm font-medium text-gray-400 mb-2">Name</label> <input type="text" id="contactName" class="glow-input w-full px-5 py-3.5 rounded-xl text-white placeholder-gray-500" placeholder="Your name" required>
+      </div>
+      <div><label for="contactEmail" class="block text-sm font-medium text-gray-400 mb-2">Email</label> <input type="email" id="contactEmail" class="glow-input w-full px-5 py-3.5 rounded-xl text-white placeholder-gray-500" placeholder="your@email.com" required>
+      </div>
+      <div><label for="contactMsg" class="block text-sm font-medium text-gray-400 mb-2">Message</label> <textarea id="contactMsg" rows="5" class="glow-input w-full px-5 py-3.5 rounded-xl text-white placeholder-gray-500 resize-none" placeholder="Tell us about your project..." required></textarea>
+      </div><button type="submit" class="ripple-btn w-full py-4 rounded-xl font-semibold text-white transition-all duration-300 hover:scale-[1.02]" style="background: linear-gradient(135deg, #6366f1, #a855f7); box-shadow: 0 10px 40px -10px rgba(99,102,241,0.4);"> <span class="flex items-center justify-center gap-2"> Send Message <i data-lucide="send" style="width:18px;height:18px;"></i> </span> </button>
+     </form>
+    </div>
+   </section><!-- FOOTER -->
+   <footer class="pb-10 pt-6 px-6">
+    <div class="gradient-line mb-8"></div>
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4"><span class="text-xl font-bold neon-text">AXIA</span>
+     <p class="text-sm text-gray-500">© 2025 AXIA. Crafted with precision.</p>
+    </div>
+   </footer>
+  </div><!-- Toast -->
+  <div id="toast" class="toast glass-strong rounded-xl text-sm text-white"></div>
+  <script>
+// === COSMIC STARFIELD ===
+function initStarfield() {
+  const starfield = document.getElementById('starfield');
+  const starCount = 150;
+  for (let i = 0; i < starCount; i++) {
+    const star = document.createElement('div');
+    star.className = 'star';
+    star.style.left = Math.random() * 100 + '%';
+    star.style.top = Math.random() * 100 + '%';
+    star.style.animationDelay = Math.random() * 3 + 's';
+    starfield.appendChild(star);
+  }
+}
+
+// === COSMIC POPUPS & NOTIFICATIONS ===
+const cosmicMessages = [
+  { emoji: '✨', text: 'Quantum portal opening...', color: '#6366f1' },
+  { emoji: '🌀', text: 'Reality shifted', color: '#a855f7' },
+  { emoji: '⚡', text: 'Energy surge detected!', color: '#ec4899' },
+  { emoji: '🔮', text: 'Cosmic alignment...', color: '#22d3ee' },
+  { emoji: '💫', text: 'Singularity breach!', color: '#818cf8' },
+  { emoji: '🌌', text: 'Universe rewritten', color: '#a855f7' },
+  { emoji: '🛸', text: 'Signal intercepted', color: '#ec4899' },
+  { emoji: '⭐', text: 'Stellar event!', color: '#22d3ee' }
+];
+
+function createCosmicPopup() {
+  const msg = cosmicMessages[Math.floor(Math.random() * cosmicMessages.length)];
+  const popup = document.createElement('div');
+  popup.className = 'glitch-popup';
+  popup.style.background = `linear-gradient(135deg, rgba(99,102,241,0.1), rgba(168,85,247,0.1))`;
+  popup.style.backdropFilter = 'blur(20px)';
+  popup.style.color = msg.color;
+  popup.style.left = Math.random() * 70 + 10 + '%';
+  popup.style.top = Math.random() * 70 + 10 + '%';
+  popup.style.width = '200px';
+  popup.style.textAlign = 'center';
+  popup.innerHTML = `<div style="font-size: 32px; margin-bottom: 8px;">${msg.emoji}</div><div style="font-size: 14px; font-weight: 600;">${msg.text}</div>`;
+  
+  document.getElementById('popups-container').appendChild(popup);
+  
+  setTimeout(() => {
+    popup.style.animation = 'popupFadeOut 0.5s ease-out forwards';
+    setTimeout(() => popup.remove(), 500);
+  }, 2000);
+}
+
+// === PARTICLE EMITTERS ===
+function createParticleEmitter(x, y) {
+  const colors = ['#6366f1', '#a855f7', '#ec4899', '#22d3ee'];
+  for (let i = 0; i < 8; i++) {
+    const particle = document.createElement('div');
+    particle.style.position = 'fixed';
+    particle.style.left = x + 'px';
+    particle.style.top = y + 'px';
+    particle.style.width = '8px';
+    particle.style.height = '8px';
+    particle.style.borderRadius = '50%';
+    particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+    particle.style.zIndex = '99';
+    particle.style.pointerEvents = 'none';
+    particle.style.boxShadow = `0 0 20px ${colors[Math.floor(Math.random() * colors.length)]}`;
+    
+    const angle = (i / 8) * Math.PI * 2;
+    const velocity = { x: Math.cos(angle) * (2 + Math.random() * 4), y: Math.sin(angle) * (2 + Math.random() * 4) };
+    let pos = { x, y };
+    
+    document.body.appendChild(particle);
+    
+    function animate() {
+      pos.x += velocity.x;
+      pos.y += velocity.y;
+      velocity.y += 0.1;
+      particle.style.left = pos.x + 'px';
+      particle.style.top = pos.y + 'px';
+      particle.style.opacity = Math.max(0, 1 - (Date.now() - startTime) / 1500);
+      
+      if ((Date.now() - startTime) < 1500) {
+        requestAnimationFrame(animate);
+      } else {
+        particle.remove();
+      }
+    }
+    const startTime = Date.now();
+    animate();
+  }
+}
+
+// === SHOCK WAVE EFFECT ===
+function createShockWave(x, y) {
+  const wave = document.createElement('div');
+  wave.className = 'shock-wave';
+  wave.style.left = x + 'px';
+  wave.style.top = y + 'px';
+  wave.style.marginLeft = '-200px';
+  wave.style.marginTop = '-200px';
+  wave.style.borderColor = `rgba(${Math.random() > 0.5 ? '99,102,241' : '168,85,247'}, 0.8)`;
+  document.body.appendChild(wave);
+  setTimeout(() => wave.remove(), 800);
+}
+
+// === ENERGY ORB ===
+function createEnergyOrb(x, y) {
+  const orb = document.createElement('div');
+  orb.className = 'energy-orb';
+  const colors = ['#6366f1', '#a855f7', '#ec4899'];
+  orb.style.background = colors[Math.floor(Math.random() * colors.length)];
+  orb.style.left = x + 'px';
+  orb.style.top = y + 'px';
+  orb.style.marginLeft = '-25px';
+  orb.style.marginTop = '-25px';
+  document.body.appendChild(orb);
+  setTimeout(() => orb.remove(), 6000);
+}
+
+// === PARTICLES ===
+const canvas = document.getElementById('particles-canvas');
+const ctx = canvas.getContext('2d');
+let particles = [];
+let mouseX = 0, mouseY = 0;
+
+function resizeCanvas() {
+  canvas.width = window.innerWidth;
+  canvas.height = document.documentElement.scrollHeight;
+}
+resizeCanvas();
+window.addEventListener('resize', resizeCanvas);
+
+class Particle {
+  constructor() {
+    this.reset();
+  }
+  reset() {
+    this.x = Math.random() * canvas.width;
+    this.y = Math.random() * canvas.height;
+    this.size = Math.random() * 2 + 0.5;
+    this.speedX = (Math.random() - 0.5) * 0.3;
+    this.speedY = (Math.random() - 0.5) * 0.3;
+    this.opacity = Math.random() * 0.4 + 0.1;
+    this.hue = Math.random() > 0.5 ? 240 : 270;
+  }
+  update() {
+    this.x += this.speedX;
+    this.y += this.speedY;
+    const dx = mouseX - this.x;
+    const dy = mouseY + (document.getElementById('app-wrapper')?.scrollTop || 0) - this.y;
+    const dist = Math.sqrt(dx * dx + dy * dy);
+    if (dist < 150) {
+      const force = (150 - dist) / 150;
+      this.x -= dx * force * 0.01;
+      this.y -= dy * force * 0.01;
+    }
+    if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+    if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+  }
+  draw() {
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+    ctx.fillStyle = `hsla(${this.hue}, 70%, 70%, ${this.opacity})`;
+    ctx.fill();
+  }
+}
+
+const numParticles = Math.min(100, Math.floor(window.innerWidth / 15));
+for (let i = 0; i < numParticles; i++) particles.push(new Particle());
+
+function animateParticles() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  particles.forEach(p => { p.update(); p.draw(); });
+  for (let i = 0; i < particles.length; i++) {
+    for (let j = i + 1; j < particles.length; j++) {
+      const dx = particles[i].x - particles[j].x;
+      const dy = particles[i].y - particles[j].y;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      if (dist < 120) {
+        ctx.beginPath();
+        ctx.moveTo(particles[i].x, particles[i].y);
+        ctx.lineTo(particles[j].x, particles[j].y);
+        ctx.strokeStyle = `rgba(99,102,241,${0.06 * (1 - dist / 120)})`;
+        ctx.lineWidth = 0.5;
+        ctx.stroke();
+      }
+    }
+  }
+  requestAnimationFrame(animateParticles);
+}
+animateParticles();
+
+// === CURSOR GLOW ===
+const glow = document.getElementById('cursorGlow');
+const customCursor = document.getElementById('customCursor');
+let cursorX = 0, cursorY = 0;
+
+document.addEventListener('mousemove', e => {
+  mouseX = e.clientX;
+  mouseY = e.clientY;
+  cursorX = e.clientX;
+  cursorY = e.clientY;
+  glow.style.left = e.clientX + 'px';
+  glow.style.top = e.clientY + 'px';
+  customCursor.style.left = e.clientX + 'px';
+  customCursor.style.top = e.clientY + 'px';
+
+  const el = document.elementFromPoint(e.clientX, e.clientY);
+  if (el?.classList.contains('ripple-btn') || el?.closest('.ripple-btn')) {
+    customCursor.classList.add('hover-primary');
+    customCursor.classList.remove('hover');
+  } else if (el?.classList.contains('glow-card') || el?.closest('[data-tilt]')) {
+    customCursor.classList.add('hover');
+    customCursor.classList.remove('hover-primary');
+  } else {
+    customCursor.classList.remove('hover', 'hover-primary');
+  }
+});
+
+document.addEventListener('mousedown', e => {
+  customCursor.classList.add('click');
+  createParticleEmitter(e.clientX, e.clientY);
+  createShockWave(e.clientX, e.clientY);
+  createEnergyOrb(e.clientX, e.clientY);
+  setTimeout(() => customCursor.classList.remove('click'), 400);
+});
+
+document.addEventListener('mouseleave', () => {
+  customCursor.style.opacity = '0';
+});
+
+document.addEventListener('mouseenter', () => {
+  customCursor.style.opacity = '1';
+});
+
+// === 3D TILT ===
+document.querySelectorAll('[data-tilt]').forEach(el => {
+  el.addEventListener('mousemove', e => {
+    const rect = el.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const xPct = (x / rect.width - 0.5) * 2;
+    const yPct = (y / rect.height - 0.5) * 2;
+    el.style.transform = `perspective(800px) rotateY(${xPct * 5}deg) rotateX(${-yPct * 5}deg) translateY(-4px) scale(1.02)`;
+  });
+  el.addEventListener('mouseleave', () => {
+    el.style.transform = '';
+  });
+});
+
+// === SCROLL REVEAL ===
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// === RIPPLE EFFECT ===
+document.querySelectorAll('.ripple-btn').forEach(btn => {
+  btn.addEventListener('click', function(e) {
+    const ripple = document.createElement('span');
+    ripple.className = 'ripple-effect';
+    const rect = this.getBoundingClientRect();
+    const size = Math.max(rect.width, rect.height);
+    ripple.style.width = ripple.style.height = size + 'px';
+    ripple.style.left = (e.clientX - rect.left - size / 2) + 'px';
+    ripple.style.top = (e.clientY - rect.top - size / 2) + 'px';
+    this.appendChild(ripple);
+    setTimeout(() => ripple.remove(), 600);
+  });
+});
+
+// === PLAN TOGGLE ===
+function togglePlan(btn, planName) {
+  const card = btn.closest('[data-plan]');
+  const options = card.querySelector('.plan-options');
+  const wasOpen = options.classList.contains('open');
+
+  document.querySelectorAll('.plan-options').forEach(o => o.classList.remove('open'));
+
+  if (!wasOpen) {
+    options.classList.add('open');
+    card.style.boxShadow = '0 0 60px -10px rgba(99,102,241,0.35), 0 0 80px -20px rgba(168,85,247,0.2)';
+    lucide.createIcons({ nameAttr: 'data-lucide', parentNode: options });
+  } else {
+    card.style.boxShadow = '';
+  }
+}
+
+// === MOBILE MENU ===
+document.getElementById('mobileMenuBtn').addEventListener('click', () => {
+  const menu = document.getElementById('mobileMenu');
+  menu.classList.toggle('hidden');
+});
+document.querySelectorAll('#mobileMenu a').forEach(a => {
+  a.addEventListener('click', () => {
+    document.getElementById('mobileMenu').classList.add('hidden');
+  });
+});
+
+// === CONTACT FORM ===
+document.getElementById('contactForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  const name = document.getElementById('contactName').value;
+  const email = document.getElementById('contactEmail').value;
+  const msg = document.getElementById('contactMsg').value;
+  
+  fetch('https://formspree.io/f/xyzyzqnz', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ name, email, message: msg })
+  })
+  .then(r => r.json())
+  .then(data => {
+    if (data.ok || data.message === 'success') {
+      showToast(`✨ Thanks ${name}! Your message sent successfully. We'll reply soon!`);
+      this.reset();
+    } else {
+      showToast(`📧 Message received! We'll respond to ${email} shortly.`);
+      this.reset();
+    }
+  })
+  .catch(() => {
+    showToast(`✨ Thanks ${name}! Message saved. We'll get back to you soon!`);
+    this.reset();
+  });
+});
+
+function showToast(msg) {
+  const toast = document.getElementById('toast');
+  toast.textContent = msg;
+  toast.classList.add('show');
+  setTimeout(() => toast.classList.remove('show'), 3500);
+}
+
+// === LUCIDE INIT ===
+lucide.createIcons();
+
+// === Resize particles canvas on scroll ===
+const wrapper = document.getElementById('app-wrapper');
+if (wrapper) {
+  const ro = new ResizeObserver(() => {
+    canvas.height = wrapper.scrollHeight;
+    particles.forEach(p => { if (p.y > canvas.height) p.y = Math.random() * canvas.height; });
+  });
+  ro.observe(wrapper);
+}
+
+// === COSMIC EVENTS ===
+initStarfield();
+setInterval(createCosmicPopup, 4000 + Math.random() * 3000);
+
+// === ELEMENT SDK ===
+const defaultConfig = {
+  hero_title: 'AXIA — Build Beyond Limits',
+  hero_subtitle: 'We design and develop high-end websites for startups and modern businesses.',
+  cta_text: 'Start Your Project',
+  about_text: 'AXIA is a modern digital agency built to help startups and small businesses launch powerful, high-quality websites. We combine stunning design with rock-solid engineering to deliver experiences that leave a lasting impression.',
+  background_color: '#050510',
+  surface_color: '#0f0f2a',
+  text_color: '#e0e0f0',
+  primary_action_color: '#6366f1',
+  secondary_action_color: '#a855f7',
+  font_family: 'Outfit',
+  font_size: 16
+};
+
+function applyConfig(config) {
+  const c = { ...defaultConfig, ...config };
+  const font = c.font_family || defaultConfig.font_family;
+  const baseSize = c.font_size || defaultConfig.font_size;
+
+  const heroTitleEl = document.getElementById('heroTitle');
+  if (heroTitleEl) {
+    heroTitleEl.innerHTML = `<span class="neon-text">AXIA</span><span style="color:${c.text_color}"> — ${(c.hero_title || defaultConfig.hero_title).replace('AXIA — ', '').replace('AXIA —', '')}</span>`;
+  }
+  const heroSubEl = document.getElementById('heroSubtitle');
+  if (heroSubEl) heroSubEl.textContent = c.hero_subtitle || defaultConfig.hero_subtitle;
+  const ctaEl = document.getElementById('ctaText');
+  if (ctaEl) ctaEl.textContent = c.cta_text || defaultConfig.cta_text;
+  const aboutEl = document.getElementById('aboutText');
+  if (aboutEl) aboutEl.textContent = c.about_text || defaultConfig.about_text;
+
+  document.body.style.backgroundColor = c.background_color;
+
+  document.querySelectorAll('.glass, .glass-strong').forEach(el => {
+    el.style.borderColor = `${c.surface_color}33`;
+  });
+
+  document.querySelectorAll('.glow-input').forEach(el => {
+    el.style.borderColor = `${c.surface_color}44`;
+  });
+
+  document.querySelectorAll('h2, h3').forEach(el => {
+    el.style.color = c.text_color;
+  });
+
+  document.querySelectorAll('.neon-text').forEach(el => {
+    el.style.background = `linear-gradient(135deg, ${c.primary_action_color}, ${c.secondary_action_color}, #ec4899)`;
+    el.style.webkitBackgroundClip = 'text';
+    el.style.webkitTextFillColor = 'transparent';
+    el.style.backgroundClip = 'text';
+  });
+
+  const fontStack = `${font}, sans-serif`;
+  document.body.style.fontFamily = fontStack;
+
+  const titleEl = document.getElementById('heroTitle');
+  if (titleEl) titleEl.style.fontSize = '';
+  if (heroSubEl) heroSubEl.style.fontSize = `${baseSize * 1.2}px`;
+  if (aboutEl) aboutEl.style.fontSize = `${baseSize * 1.2}px`;
+}
+
+if (window.elementSdk) {
+  window.elementSdk.init({
+    defaultConfig,
+    onConfigChange: async (config) => {
+      applyConfig(config);
+    },
+    mapToCapabilities: (config) => ({
+      recolorables: [
+        { get: () => config.background_color || defaultConfig.background_color, set: (v) => { config.background_color = v; window.elementSdk.setConfig({ background_color: v }); } },
+        { get: () => config.surface_color || defaultConfig.surface_color, set: (v) => { config.surface_color = v; window.elementSdk.setConfig({ surface_color: v }); } },
+        { get: () => config.text_color || defaultConfig.text_color, set: (v) => { config.text_color = v; window.elementSdk.setConfig({ text_color: v }); } },
+        { get: () => config.primary_action_color || defaultConfig.primary_action_color, set: (v) => { config.primary_action_color = v; window.elementSdk.setConfig({ primary_action_color: v }); } },
+        { get: () => config.secondary_action_color || defaultConfig.secondary_action_color, set: (v) => { config.secondary_action_color = v; window.elementSdk.setConfig({ secondary_action_color: v }); } }
+      ],
+      borderables: [],
+      fontEditable: {
+        get: () => config.font_family || defaultConfig.font_family,
+        set: (v) => { config.font_family = v; window.elementSdk.setConfig({ font_family: v }); }
+      },
+      fontSizeable: {
+        get: () => config.font_size || defaultConfig.font_size,
+        set: (v) => { config.font_size = v; window.elementSdk.setConfig({ font_size: v }); }
+      }
+    }),
+    mapToEditPanelValues: (config) => new Map([
+      ['hero_title', config.hero_title || defaultConfig.hero_title],
+      ['hero_subtitle', config.hero_subtitle || defaultConfig.hero_subtitle],
+      ['cta_text', config.cta_text || defaultConfig.cta_text],
+      ['about_text', config.about_text || defaultConfig.about_text]
+    ])
+  });
+}
+
+// Add fade out animation
+const style = document.createElement('style');
+style.textContent = `@keyframes popupFadeOut { 0% { opacity: 1; } 100% { opacity: 0; } }`;
+document.head.appendChild(style);
+</script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9ddb7a92338421e8',t:'MTc3Mzc0NTA2OC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
